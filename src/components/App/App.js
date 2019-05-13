@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import PortfolioList from '../PortfolioList/PortfolioList'
+//import PortfolioList from '../PortfolioList/PortfolioList'
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Admin from '../Admin/Admin'
+import Splash from '../Splash/Splash'
+import Work from '../Work/Work'
+import Nav from '../Nav/Nav';
+
 
 class App extends Component {
 
@@ -16,8 +20,10 @@ class App extends Component {
       //App consists of two main pages, or views, as represented below
       <div className="App">
         <Router>
-          <Route exact path='/' component={PortfolioList} />
+          <Nav />
+          <Route exact path='/' component={Splash} />
           <Route path='/admin' component={Admin} />
+          <Route path='/work' component={Work} />
         </Router>
       </div>
 
