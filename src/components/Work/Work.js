@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import axios from 'axios';
 
 const styles = theme => ({
     card: {
@@ -19,15 +20,51 @@ const styles = theme => ({
 
 class Work extends Component {
 
-    state = {
-        showImg: true,
-        galleryList: []
-    }
-    
+state = {
+    repos: [],
+    showImg: true,
+    galleryList: []
+}
+
+getStarredRepos = () => {
+    axios({
+        url:'https://api.github.com/users/bennyrags/starred',
+        type:'get'
+    }).then(response=>{
+console.log(response.data)
+let newObj = {};
+let newArr = []; 
+for (let i of response.data) {
+     newObj = {
+         name: i.name,
+         description: i.description,
+         url: i.url,
+     }
+newArr.push(newObj);
+this.setState({
+    ...this.state,
+    repos: newArr
+})
+ }
+
+console.log(`this is newArr,`, newArr)
+console.log(`this is state,`, this.state)
+
+})
+    .catch(error =>{
+        console.log(error);
+    })
+}
+
+
     handleFlip = () => {
         this.setState({
             showImg: !this.state.showImg
         })
+    }
+
+    componentDidMount() {
+        this.getStarredRepos();
     }
 
     render() {
