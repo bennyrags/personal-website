@@ -23,62 +23,72 @@ class Work extends Component {
 state = {
     repos: [],
     showImg: true,
+    showImg1: true,
+    showImg2: true,
+    showImg3: true,
+    showImg4: true,
+
     galleryList: []
 }
 
-getStarredRepos = () => {
-    axios({
-        url:'https://api.github.com/users/bennyrags/starred',
-        type:'get'
-    }).then(response=>{
-console.log(response.data)
-let newObj = {};
-let newArr = []; 
-for (let i of response.data) {
-     newObj = {
-         name: i.name,
-         description: i.description,
-         url: i.url,
-     }
-newArr.push(newObj);
-this.setState({
-    ...this.state,
-    repos: newArr
+handleFlip1 = (event) => {
+    this.setState({
+        ...this.state,
+    showImg1: !this.state.showImg1
 })
- }
 
-console.log(`this is newArr,`, newArr)
-console.log(`this is state,`, this.state)
-
-})
-    .catch(error =>{
-        console.log(error);
-    })
 }
 
+// getStarredRepos = () => {
+//     axios({
+//         url:'https://api.github.com/users/bennyrags/starred',
+//         type:'get'
+//     }).then(response=>{
+// console.log(response.data)
+// let newObj = {};
+// let newArr = []; 
+// for (let i of response.data) {
+//      newObj = {
+//          name: i.name,
+//          description: i.description,
+//          url: i.url,
+//      }
+// newArr.push(newObj);
+// this.setState({
+//     ...this.state,
+//     repos: newArr
+// })
+//  }
 
-    handleFlip = () => {
-        this.setState({
-            showImg: !this.state.showImg
-        })
-    }
+// console.log(`this is newArr,`, newArr)
+// console.log(`this is state,`, this.state)
 
-    componentDidMount() {
-        this.getStarredRepos();
-    }
+// })
+//     .catch(error =>{
+//         console.log(error);
+//     })
+// }
+
+
+
+
+    // componentDidMount() {
+    //     this.getStarredRepos();
+    // }
 
     render() {
         const { classes } = this.props;
-
+        let showImg1 = true;
+       
         return (
             <Grid container direction="row" justify="center" alignItems="center" spacing={24} >
                 <Grid item xs={12} sm={6} md={4} lg={3}>
                     <Card className={classes.card} >
                     <CardContent>
-                {this.state.showImg
+                {this.state.showImg1
                     ? 
                     <>
-                    <img src={require('../../images/dreamcatcher-400x435.jpg')} onClick={this.handleFlip} alt='Dreamcatcher homepage' height="218" width="200" />
+                    <img name='showImg1' value='true' src={require('../../images/dreamcatcher-400x435.jpg')} onClick={this.handleFlip1} alt='Dreamcatcher homepage' height="218" width="200" />
                     <h4>Dreamcatcher</h4>
                     <h5>Built with</h5>
                     <i class="devicon-react-original"></i>
@@ -90,7 +100,7 @@ console.log(`this is state,`, this.state)
 
 
                     </>
-                    : <span className="flipText"><p onClick={this.handleFlip}>This is a description</p></span>
+                    : <span className="flipText"><p onClick={this.handleFlip1}>This is a description</p></span>
                 }
                 </CardContent>
                     </Card>
